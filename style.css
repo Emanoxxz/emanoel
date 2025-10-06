@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --color-dark: #111111;
+    --color-red: #e50914;
+    --color-light: #ffffff;
+    --color-gray: #333333;
+    --color-light-gray: #a0a0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    width: 900px;
+    height: 600px;
+    background-color: #000;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.form-wrapper {
+    flex: 1;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-panel {
+    flex: 1;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=2069&auto=format&fit=crop') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    color: var(--color-light);
+}
+
+.info-panel h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.info-panel p {
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.form-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--color-light);
+}
+
+.form-subtitle {
+    font-size: 1rem;
+    color: var(--color-light-gray);
+    margin-bottom: 30px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+/* Estilo para os ícones dentro do input-group */
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-light-gray);
+}
+
+/* Posição do ícone de usuário/cadeado (esquerdo) */
+.input-group i:first-child {
+    left: 15px;
+}
+
+/* Posição do ícone de toggle-password (direito) */
+.input-group .toggle-password {
+    right: 15px;
+    cursor: pointer;
+    z-index: 10; /* Garante que o ícone seja clicável */
+}
+
+
+.input-group input {
+    width: 100%;
+    padding: 15px 50px 15px 45px; /* Ajuste o padding-right para acomodar o ícone direito */
+    background-color: var(--color-gray);
+    border: 1px solid var(--color-gray);
+    border-radius: 8px;
+    color: var(--color-light);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--color-red);
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-red);
+    border: none;
+    border-radius: 8px;
+    color: var(--color-light);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    letter-spacing: 1px;
+}
+
+.btn-submit:hover {
+    background-color: #c40812;
+    transform: translateY(-2px);
+}
+
+.form-switch-link {
+    text-align: center;
+    margin-top: 25px;
+    color: var(--color-light-gray);
+}
+
+.form-switch-link a {
+    color: var(--color-red);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-switch-link a:hover {
+    text-decoration: underline;
+}
