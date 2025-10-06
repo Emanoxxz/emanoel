@@ -50,9 +50,9 @@ function fazerLogin() {
     const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioInput && u.senha === senhaInput);
 
     if (usuarioEncontrado) {
-        alert(`Login bem-sucedido! Bem-vindo, ${usuarioInput}!`);
-        // Futuramente, redirecione para a página principal:
-        // window.location.href = 'principal.html';
+        // -----> MUDANÇA IMPORTANTE AQUI <-----
+        // Redireciona para a página de início após o login
+        window.location.href = 'inicio.html';
     } else {
         alert('Usuário ou senha incorretos.');
     }
