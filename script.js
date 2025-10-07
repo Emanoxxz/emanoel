@@ -1,7 +1,31 @@
-// Usuários "salvos" em memória.
-const usuarios = [
-    { usuario: 'developer', senha: 'você' }
-];
+// --- LÓGICA DO BANCO DE DADOS LOCAL (localStorage) ---
+function getUsuariosDB() {
+    const usuariosString = localStorage.getItem('usuarios');
+    if (!usuariosString) {
+        return [{ usuario: 'developer', senha: 'você' }];
+    }
+    return JSON.parse(usuariosString);
+}
+
+function saveUsuariosDB(usuarios) {
+    const usuariosString = JSON.stringify(usuarios);
+    localStorage.setItem('usuarios', usuariosString);
+}
+
+let usuarios = getUsuariosDB();
+saveUsuariosDB(usuarios);
+
+// --- LÓGICA DAS NOTIFICAÇÕES ---
+function showNotification(message, type) {
+    const container = document.getElementById('notification-container');
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    container.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
+}
 
 const loginForm = document.getElementById('login-form');
 const cadastroForm = document.getElementById('cadastro-form');
@@ -17,14 +41,10 @@ function mostrarLogin() {
     loginForm.classList.remove('hidden');
 }
 
-/**
- * Alterna a visibilidade de um campo de senha.
- * @param {string} inputId O ID do campo de input da senha.
- */
+// Função para alternar visibilidade da senha
 function togglePasswordVisibility(inputId) {
     const input = document.getElementById(inputId);
-    const icon = input.nextElementSibling; // O ícone é o próximo elemento irmão
-
+    const icon = input.nextElementSibling;
     if (input.type === 'password') {
         input.type = 'text';
         icon.classList.remove('fa-eye');
@@ -36,49 +56,55 @@ function togglePasswordVisibility(inputId) {
     }
 }
 
-
-// Função de Login
+// Função de Login (com notificações)
 function fazerLogin() {
     const usuarioInput = document.getElementById('login-usuario').value.trim();
     const senhaInput = document.getElementById('login-senha').value.trim();
+    usuarios = getUsuariosDB();
 
     if (!usuarioInput || !senhaInput) {
-        alert('Por favor, preencha todos os campos.');
+        showNotification('Por favor, preencha todos os campos.', 'error');
         return;
     }
 
     const usuarioEncontrado = usuarios.find(u => u.usuario === usuarioInput && u.senha === senhaInput);
 
     if (usuarioEncontrado) {
-        // -----> MUDANÇA IMPORTANTE AQUI <-----
-        // Redireciona para a página de início após o login
-        window.location.href = 'inicio.html';
+        // Salva o nome do usuário logado na sessionStorage para usar na outra página
+        sessionStorage.setItem('loggedUser', usuarioInput);
+        
+        showNotification(`Bem-vindo, ${usuarioInput}!`, 'success');
+        setTimeout(() => {
+            window.location.href = 'inicio.html';
+        }, 1000);
     } else {
-        alert('Usuário ou senha incorretos.');
+        showNotification('Usuário ou senha incorretos.', 'error');
     }
 }
 
-// Função de Cadastro
+// Função de Cadastro (com notificações)
 function fazerCadastro() {
     const usuarioInput = document.getElementById('cadastro-usuario').value.trim();
     const senhaInput = document.getElementById('cadastro-senha').value.trim();
+    usuarios = getUsuariosDB();
 
     if (!usuarioInput || !senhaInput) {
-        alert('Por favor, preencha todos os campos.');
+        showNotification('Por favor, preencha todos os campos.', 'error');
         return;
     }
-
+    
     const usuarioExistente = usuarios.some(u => u.usuario === usuarioInput);
 
     if (usuarioExistente) {
-        alert('Este nome de usuário já está em uso. Por favor, escolha outro.');
+        showNotification('Este nome de usuário já está em uso.', 'error');
     } else {
         usuarios.push({ usuario: usuarioInput, senha: senhaInput });
-        alert('Cadastro realizado com sucesso! Agora você já pode fazer o login.');
-        console.log('Usuários cadastrados:', usuarios);
+        saveUsuariosDB(usuarios); 
+        
+        showNotification('Cadastro realizado com sucesso!', 'success');
+        console.log('Usuários salvos no localStorage:', getUsuariosDB());
         mostrarLogin();
-        // Limpa os campos do formulário de cadastro após o sucesso
-        document.getElementById('cadastro-usuario').value = '';
-        document.getElementById('cadastro-senha').value = '';
+        
+        document.getElementById('cadastro-form').reset();
     }
 }
