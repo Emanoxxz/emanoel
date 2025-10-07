@@ -98,7 +98,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* Estilo para os ícones dentro do input-group */
 .input-group i {
     position: absolute;
     top: 50%;
@@ -106,22 +105,20 @@ body {
     color: var(--color-light-gray);
 }
 
-/* Posição do ícone de usuário/cadeado (esquerdo) */
 .input-group i:first-child {
     left: 15px;
 }
 
-/* Posição do ícone de toggle-password (direito) */
 .input-group .toggle-password {
     right: 15px;
     cursor: pointer;
-    z-index: 10; /* Garante que o ícone seja clicável */
+    z-index: 10;
 }
 
 
 .input-group input {
     width: 100%;
-    padding: 15px 50px 15px 45px; /* Ajuste o padding-right para acomodar o ícone direito */
+    padding: 15px 50px 15px 45px;
     background-color: var(--color-gray);
     border: 1px solid var(--color-gray);
     border-radius: 8px;
@@ -169,4 +166,56 @@ body {
 
 .form-switch-link a:hover {
     text-decoration: underline;
+}
+
+/* --- ESTILOS DAS NOTIFICAÇÕES --- */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    min-width: 280px;
+    color: var(--color-light);
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border-left: 5px solid;
+    animation: slideIn 0.4s ease-out, fadeOut 0.5s ease-in-out 3.5s forwards;
+    opacity: 0;
+    transform: translateX(100%);
+    font-weight: 500;
+}
+
+.notification.success {
+    background-color: #2b2b2b;
+    border-left-color: #28a745;
+}
+
+.notification.error {
+    background-color: #2b2b2b;
+    border-left-color: var(--color-red);
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
 }
