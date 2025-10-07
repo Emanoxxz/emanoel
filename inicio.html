@@ -94,10 +94,22 @@
 
     <main>
         <div class="welcome-container">
-            <h1>Bem-vindo, Developer!</h1>
+            <h1 id="welcome-message">Bem-vindo!</h1>
             <p>Este é o painel principal do seu projeto sobre Inteligência Artificial. <br> Novas funcionalidades serão adicionadas aqui.</p>
         </div>
     </main>
 
+    <script>
+        // Script para personalizar a mensagem de boas-vindas
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedUser = sessionStorage.getItem('loggedUser');
+            const welcomeMessage = document.getElementById('welcome-message');
+            if (loggedUser) {
+                // Capitaliza a primeira letra do nome do usuário
+                const capitalizedUser = loggedUser.charAt(0).toUpperCase() + loggedUser.slice(1);
+                welcomeMessage.textContent = `Bem-vindo, ${capitalizedUser}!`;
+            }
+        });
+    </script>
 </body>
 </html>
