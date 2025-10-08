@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIStation - Autenticação</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme-style-tag', ''); // Placeholder para o estilo
+        const style = document.createElement('style');
+        style.innerHTML = `
+            body {
+                --bg-color: ${savedTheme === 'light' ? '#f0f2f5' : '#111111'};
+                --text-color: ${savedTheme === 'light' ? '#1c1e21' : '#ffffff'};
+                --card-bg-color: ${savedTheme === 'light' ? '#ffffff' : '#000000'};
+                --input-bg-color: ${savedTheme === 'light' ? '#e4e6eb' : '#333333'};
+                --text-color-muted: ${savedTheme === 'light' ? '#65676b' : '#a0a0a0'};
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</head>
 <body>
     <div class="main-container">
         <div class="form-wrapper">
@@ -46,14 +69,19 @@
                 </form>
             </div>
         </div>
+        
         <div class="info-panel">
-            <h2>PROJETO IA</h2>
-            <p>Uma jornada pela Inteligência Artificial.</p>
+            <h2> IaStation - Sua Central de Inteligência Artificial</h2>
+            <p>Tudo que você precisa em um só lugar. Explore nossos serviços:</p>
+            <ul class="services-list">
+                <li><i class="fas fa-microchip"></i> Suporte para as melhores IAs do mercado.</li>
+                <li><i class="fas fa-code"></i> Orçamentos para criação de sites e sistemas.</li>
+                <li><i class="fas fa-newspaper"></i> Blog com novidades do mundo da tecnologia.</li>
+            </ul>
         </div>
     </div>
 
     <div id="notification-container"></div>
-
     <script src="script.js"></script>
 </body>
 </html>

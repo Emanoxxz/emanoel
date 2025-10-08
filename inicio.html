@@ -3,112 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início - Projeto IA</title>
+    <title>Início - AIStation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         :root {
-            --color-dark: #111111;
-            --color-red: #e50914;
-            --color-light: #ffffff;
-            --color-gray: #333333;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--color-dark);
-            color: var(--color-light);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #000;
-            padding: 1rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--color-red);
-            text-decoration: none;
-        }
-
-        .logout-button {
-            background-color: transparent;
-            color: var(--color-light);
-            border: 2px solid var(--color-red);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .logout-button i {
-            margin-right: 8px;
-        }
-
-        .logout-button:hover {
-            background-color: var(--color-red);
-            color: var(--color-light);
-        }
-
-        main {
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .welcome-container h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .welcome-container p {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-        }
+            --color-red: #e50914; --color-green: #28a745; --bg-color: #111111; --bg-color-2: #000000;
+            --card-bg-color: #1d1d1d; --text-color: #ffffff; --text-color-muted: #a0a0a0; --border-color: #333333; }
+        body[data-theme="light"] {
+            --bg-color: #f0f2f5; --bg-color-2: #ffffff; --card-bg-color: #ffffff; --text-color: #1c1e21;
+            --text-color-muted: #65676b; --border-color: #ced0d4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-color);
+            display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s, color 0.3s; }
+        .card { background-color: var(--card-bg-color); border-radius: 8px; padding: 2rem; border: 1px solid var(--border-color);
+            max-width: 800px; transition: background-color 0.3s, border-color 0.3s; }
+        .btn { padding: 0.8rem 1.5rem; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; }
+        .btn-primary { background-color: var(--color-red); color: #ffffff; } .btn-primary:hover { filter: brightness(1.2); }
+        .btn-secondary { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color); margin-left: 10px; }
+        .btn-secondary:hover { background-color: var(--border-color); } .btn:disabled { background-color: var(--border-color); color: var(--text-color-muted); cursor: not-allowed; }
+        .sidebar { width: 260px; background-color: var(--bg-color-2); padding: 2rem 1.5rem; display: flex; flex-direction: column;
+            border-right: 1px solid var(--border-color); transition: background-color 0.3s, border-color 0.3s; }
+        .sidebar .logo { font-size: 1.8rem; font-weight: 700; color: var(--color-red); text-decoration: none; margin-bottom: 3rem; }
+        .sidebar .nav-menu { list-style: none; flex-grow: 1; }
+        .sidebar .nav-menu li a { display: flex; align-items: center; padding: 1rem; color: var(--text-color-muted); text-decoration: none;
+            border-radius: 8px; margin-bottom: 0.5rem; transition: background-color 0.3s, color 0.3s; }
+        .sidebar .nav-menu li a:hover { background-color: var(--card-bg-color); color: var(--text-color); }
+        .sidebar .nav-menu li a.active { background-color: var(--color-red); color: #ffffff; font-weight: 500; }
+        .sidebar .nav-menu li a i { margin-right: 15px; width: 20px; text-align: center; }
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem 1.5rem 3rem;
+            border-bottom: 1px solid var(--border-color); background-color: var(--bg-color); position: sticky; top: 0; z-index: 10;
+            transition: background-color 0.3s, border-color 0.3s; }
+        .header-title h1 { font-size: 2.2rem; }
+        .profile-menu { position: relative; }
+        .profile-trigger { display: flex; align-items: center; cursor: pointer; padding: 5px; border-radius: 50px; transition: background-color 0.2s; }
+        .profile-trigger:hover { background-color: var(--card-bg-color); }
+        .profile-pic { width: 40px; height: 40px; border-radius: 50%; background-color: var(--border-color); display: flex; align-items: center; justify-content: center;
+            color: var(--text-color); font-size: 1.2rem; margin-right: 10px; border: 2px solid var(--color-red); }
+        .profile-name { font-weight: 500; margin-right: 10px; }
+        .profile-trigger i.fa-chevron-down { font-size: 0.8rem; color: var(--text-color-muted); transition: transform 0.3s; }
+        .profile-trigger.active i.fa-chevron-down { transform: rotate(180deg); }
+        .dropdown-content { display: none; position: absolute; top: 110%; right: 0; background-color: var(--card-bg-color);
+            min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); z-index: 1;
+            border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; }
+        .dropdown-content.show { display: block; }
+        .dropdown-content a { color: var(--text-color-muted); padding: 12px 16px; text-decoration: none; display: flex; align-items: center;
+            font-size: 0.95rem; transition: background-color 0.2s; }
+        .dropdown-content a i { margin-right: 10px; width: 20px; text-align: center; }
+        .dropdown-content a:hover { background-color: var(--border-color); color: var(--text-color); }
+        .dropdown-separator { border-top: 1px solid var(--border-color); }
+        .content-area { padding: 2.5rem 3rem; }
+        .content-section { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-section h1.welcome-title { font-size: 3rem; margin-bottom: 0.5rem; }
+        .content-section p { font-size: 1.1rem; color: var(--text-color-muted); } .hidden { display: none; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-color-muted); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background-color: var(--bg-color);
+            border: 1px solid var(--border-color); border-radius: 5px; color: var(--text-color); font-size: 1rem; font-family: 'Poppins', sans-serif; }
+        .form-group input:disabled { background-color: var(--border-color); color: var(--text-color-muted); cursor: not-allowed; }
+        .form-actions { margin-top: 2rem; display: flex; justify-content: flex-end; }
+        textarea { resize: vertical; min-height: 120px; }
+        .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--border-color); }
+        .setting-item:last-child { border-bottom: none; }
+        .setting-text h3 { font-size: 1.1rem; font-weight: 500; } .setting-text p { font-size: 0.9rem; margin-top: 0.2rem; }
+        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--border-color); transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--color-green); } input:checked + .slider:before { transform: translateX(22px); }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .tool-card { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s; }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .tool-card i { font-size: 2rem; color: var(--color-red); margin-bottom: 1rem; }
+        .tool-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; } .tool-card p { font-size: 0.9rem; }
+        .blog-post { padding: 2rem 0; border-bottom: 1px solid var(--border-color); }
+        .blog-post:first-child { padding-top: 0; }
+        .blog-post h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .blog-post .post-meta { font-size: 0.9rem; color: var(--text-color-muted); margin-bottom: 1rem; }
     </style>
 </head>
 <body>
-    <header>
-        <a href="#" class="logo">PROJETO IA</a>
-        <button class="logout-button" onclick="window.location.href='index.html'">
-            <i class="fas fa-sign-out-alt"></i>
-            Sair
-        </button>
-    </header>
+    <aside class="sidebar">
+        <a href="#" class="logo">AIStation</a>
+        <ul class="nav-menu">
+            <li><a href="#" id="nav-inicio" class="active" onclick="showContent('inicio')"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="#" id="nav-ferramentas" onclick="showContent('ferramentas')"><i class="fas fa-microchip"></i> Ferramentas IA</a></li>
+            <li><a href="#" id="nav-orcamentos" onclick="showContent('orcamentos')"><i class="fas fa-code"></i> Orçamentos</a></li>
+            <li><a href="#" id="nav-blog" onclick="showContent('blog')"><i class="fas fa-newspaper"></i> Blog</a></li>
+        </ul>
+    </aside>
 
-    <main>
-        <div class="welcome-container">
-            <h1 id="welcome-message">Bem-vindo!</h1>
-            <p>Este é o painel principal do seu projeto sobre Inteligência Artificial. <br> Novas funcionalidades serão adicionadas aqui.</p>
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-title"> <h1 id="page-title">Início</h1> </div>
+            <div class="profile-menu">
+                <div class="profile-trigger" onclick="toggleDropdown()">
+                    <div class="profile-pic"><i class="fas fa-user"></i></div>
+                    <span class="profile-name">Usuário</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-content" id="profile-dropdown">
+                    <a href="#" onclick="showContent('perfil'); toggleDropdown();"><i class="fas fa-user-circle"></i> Meu Perfil</a>
+                    <a href="#" onclick="showContent('configuracoes'); toggleDropdown();"><i class="fas fa-cog"></i> Configurações</a>
+                    <div class="dropdown-separator"></div>
+                    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-area">
+            <section id="content-inicio" class="content-section">
+                <h1 id="welcome-message-main" class="welcome-title"></h1>
+                <p>Navegue pelo menu para explorar nossas funcionalidades.</p>
+            </section>
+            <section id="content-ferramentas" class="content-section hidden">
+                <div class="tools-grid">
+                    <div class="tool-card"> <i class="fas fa-paint-brush"></i> <h3>Gerador de Imagens</h3> <p>Crie imagens incríveis a partir de texto com IAs como DALL-E e Midjourney.</p> </div>
+                    <div class="tool-card"> <i class="fas fa-robot"></i> <h3>Chatbots Avançados</h3> <p>Converse com modelos de linguagem como GPT-4 para obter respostas, resumos e códigos.</p> </div>
+                    <div class="tool-card"> <i class="fas fa-music"></i> <h3>Compositor Musical</h3> <p>Gere trilhas sonoras originais para seus vídeos ou projetos com IAs musicais.</p> </div>
+                    <div class="tool-card"> <i class="fas fa-video"></i> <h3>Editor de Vídeo IA</h3> <p>Edite e crie vídeos automaticamente, adicione legendas e melhore a qualidade.</p> </div>
+                </div>
+            </section>
+            <section id="content-orcamentos" class="content-section hidden">
+                <div class="card">
+                    <form>
+                        <div class="form-group"> <label for="quote-name">Seu Nome</label> <input type="text" id="quote-name" placeholder="Digite seu nome completo"> </div>
+                        <div class="form-group"> <label for="quote-email">Seu Email</label> <input type="email" id="quote-email" placeholder="email@exemplo.com"> </div>
+                        <div class="form-group"> <label for="quote-project">Tipo de Projeto</label>
+                            <select id="quote-project"> <option>Site Institucional</option> <option>E-commerce / Loja Virtual</option> <option>Sistema Web Personalizado</option> <option>Outro</option> </select>
+                        </div>
+                        <div class="form-group"> <label for="quote-desc">Descreva seu projeto</label> <textarea id="quote-desc" placeholder="Dê detalhes sobre o que você precisa..."></textarea> </div>
+                        <div class="form-actions"> <button type="button" class="btn btn-primary">Enviar Solicitação</button> </div>
+                    </form>
+                </div>
+            </section>
+            <section id="content-blog" class="content-section hidden">
+                <div class="card">
+                    <article class="blog-post"> <h2>O Futuro é Agora: 5 Novidades em IA que Você Precisa Conhecer</h2> <p class="post-meta">Por Gemini em 08 de Outubro, 2025</p> <p>A inteligência artificial continua a evoluir em um ritmo alucinante. De modelos de linguagem que escrevem como humanos a IAs que criam arte, o futuro está...</p> </article>
+                    <article class="blog-post"> <h2>Como Usar o ChatGPT para Aumentar sua Produtividade</h2> <p class="post-meta">Por Gemini em 02 de Outubro, 2025</p> <p>O ChatGPT não é apenas para diversão. Descubra como usar prompts eficazes para automatizar tarefas, escrever e-mails, gerar código e muito mais...</p> </article>
+                </div>
+            </section>
+            
+            <section id="content-perfil" class="content-section hidden">
+                <div class="card">
+                    <form id="profile-form">
+                        <div class="form-group"> <label for="profile-fullname">Nome Completo</label> <input type="text" id="profile-fullname" placeholder="Seu nome completo" disabled> </div>
+                        <div class="form-group"> <label for="profile-username">Nome de Usuário</label> <input type="text" id="profile-username" disabled> </div>
+                        <div class="form-group"> <label for="profile-email">Email</label> <input type="email" id="profile-email" placeholder="seu-email@exemplo.com" disabled> </div>
+                        <div class="form-group"> <label for="profile-password">Nova Senha</label> <input type="password" id="profile-password" placeholder="Deixe em branco para não alterar" disabled> </div>
+                        <div class="form-actions">
+                            <button type="button" id="edit-button" class="btn btn-secondary">Editar</button>
+                            <button type="submit" id="save-button" class="btn btn-primary hidden">Salvar Alterações</button>
+                            <button type="button" id="cancel-button" class="btn btn-secondary hidden">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="content-configuracoes" class="content-section hidden">
+                <div class="card">
+                    <div class="setting-item">
+                        <div class="setting-text"> <h3>Tema Escuro</h3> <p>Alterne entre os temas claro e escuro.</p> </div>
+                        <label class="toggle-switch"> <input type="checkbox" id="theme-toggle"> <span class="slider"></span> </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-text"> <h3>Notificações por Email</h3> <p>Receber novidades e atualizações importantes.</p> </div>
+                        <label class="toggle-switch"> <input type="checkbox" id="toggle-email-notifications"> <span class="slider"></span> </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-text"> <h3>Autenticação de Dois Fatores</h3> <p>Aumente a segurança da sua conta.</p> </div>
+                        <label class="toggle-switch"> <input type="checkbox" id="toggle-2fa"> <span class="slider"></span> </label>
+                    </div>
+                     <div class="setting-item">
+                        <div class="setting-text"> <h3>Idioma</h3> <p>Selecione o idioma da interface.</p> </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <select id="language-select" style="max-width: 200px;">
+                                <option value="pt-br">Português (Brasil)</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
     <script>
-        // Script para personalizar a mensagem de boas-vindas
-        document.addEventListener('DOMContentLoaded', () => {
-            const loggedUser = sessionStorage.getItem('loggedUser');
-            const welcomeMessage = document.getElementById('welcome-message');
-            if (loggedUser) {
-                // Capitaliza a primeira letra do nome do usuário
-                const capitalizedUser = loggedUser.charAt(0).toUpperCase() + loggedUser.slice(1);
-                welcomeMessage.textContent = `Bem-vindo, ${capitalizedUser}!`;
+        // --- LÓGICA DE TEMAS (CLARO/ESCURO) ---
+        const themeToggle = document.getElementById('theme-toggle');
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if(themeToggle) themeToggle.checked = theme === 'dark';
+        }
+        themeToggle.addEventListener('change', () => setTheme(themeToggle.checked ? 'dark' : 'light'));
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        setTheme(savedTheme);
+
+        // --- LÓGICA DO MENU DROPDOWN ---
+        function toggleDropdown() {
+            document.getElementById("profile-dropdown").classList.toggle("show");
+            document.querySelector(".profile-trigger").classList.toggle("active");
+        }
+        window.onclick = function(event) {
+            if (!event.target.closest('.profile-menu')) {
+                document.querySelectorAll(".dropdown-content.show").forEach(d => d.classList.remove('show'));
+                document.querySelectorAll(".profile-trigger.active").forEach(t => t.classList.remove('active'));
             }
+        }
+        
+        // --- LÓGICA DE NAVEGAÇÃO POR ABAS ---
+        const pageTitles = {
+            inicio: 'Início', ferramentas: 'Ferramentas de IA', orcamentos: 'Orçamentos', blog: 'Blog',
+            perfil: 'Meu Perfil', configuracoes: 'Configurações'
+        };
+        function showContent(contentId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.add('hidden'));
+            document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+            document.getElementById(`content-${contentId}`).classList.remove('hidden');
+            const navLink = document.getElementById(`nav-${contentId}`);
+            if (navLink) navLink.classList.add('active');
+            document.getElementById('page-title').textContent = pageTitles[contentId];
+        }
+
+        // --- LÓGICA PRINCIPAL DA PÁGINA (Executada após o carregamento) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedUsername = sessionStorage.getItem('loggedUser');
+            if (!loggedUsername) { window.location.href = 'index.html'; return; }
+
+            let allUsers = JSON.parse(localStorage.getItem('usuarios')) || [];
+            let currentUser = allUsers.find(u => u.usuario === loggedUsername);
+            
+            // Lógica de Boas-Vindas e Preenchimento de Nomes
+            const capitalizedUser = currentUser.usuario.charAt(0).toUpperCase() + currentUser.usuario.slice(1);
+            document.querySelector(".profile-name").textContent = capitalizedUser;
+            const welcomeMsg = document.getElementById('welcome-message-main');
+            if (currentUser.usuario.toLowerCase() === 'developer') {
+                welcomeMsg.textContent = 'O dono ta na casa!';
+            } else {
+                welcomeMsg.textContent = `Bem-vindo, ${capitalizedUser}!`;
+            }
+            populateProfileForm();
+            loadAndApplySettings();
+
+            // --- LÓGICA DO PERFIL ---
+            const profileForm = document.getElementById('profile-form');
+            const formInputs = profileForm.querySelectorAll('input');
+            const editButton = document.getElementById('edit-button');
+            const saveButton = document.getElementById('save-button');
+            const cancelButton = document.getElementById('cancel-button');
+
+            function populateProfileForm() {
+                document.getElementById('profile-fullname').value = currentUser.fullname || '';
+                document.getElementById('profile-username').value = currentUser.usuario;
+                document.getElementById('profile-email').value = currentUser.email || '';
+                document.getElementById('profile-password').value = '';
+            }
+
+            function toggleProfileEdit(isEditing) {
+                formInputs.forEach(input => input.disabled = !isEditing);
+                document.getElementById('profile-username').disabled = true; // Username não pode ser editado
+                editButton.classList.toggle('hidden', isEditing);
+                saveButton.classList.toggle('hidden', !isEditing);
+                cancelButton.classList.toggle('hidden', !isEditing);
+            }
+
+            editButton.addEventListener('click', () => toggleProfileEdit(true));
+            cancelButton.addEventListener('click', () => { populateProfileForm(); toggleProfileEdit(false); });
+            profileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                currentUser.fullname = document.getElementById('profile-fullname').value;
+                currentUser.email = document.getElementById('profile-email').value;
+                const newPassword = document.getElementById('profile-password').value;
+                if (newPassword) { currentUser.senha = newPassword; }
+                
+                const userIndex = allUsers.findIndex(u => u.usuario === loggedUsername);
+                allUsers[userIndex] = currentUser;
+                localStorage.setItem('usuarios', JSON.stringify(allUsers));
+                
+                alert('Perfil atualizado com sucesso!');
+                toggleProfileEdit(false);
+            });
+
+            // --- LÓGICA DAS CONFIGURAÇÕES ---
+            const settingsControls = document.querySelectorAll('#content-configuracoes input, #content-configuracoes select');
+            
+            function saveSettings() {
+                const settings = {
+                    emailNotifications: document.getElementById('toggle-email-notifications').checked,
+                    twoFactorAuth: document.getElementById('toggle-2fa').checked,
+                    language: document.getElementById('language-select').value
+                };
+                localStorage.setItem(`settings_${currentUser.usuario}`, JSON.stringify(settings));
+            }
+
+            function loadAndApplySettings() {
+                const defaultSettings = { emailNotifications: true, twoFactorAuth: false, language: 'pt-br' };
+                const savedSettings = JSON.parse(localStorage.getItem(`settings_${currentUser.usuario}`)) || defaultSettings;
+                document.getElementById('toggle-email-notifications').checked = savedSettings.emailNotifications;
+                document.getElementById('toggle-2fa').checked = savedSettings.twoFactorAuth;
+                document.getElementById('language-select').value = savedSettings.language;
+            }
+            
+            settingsControls.forEach(control => control.addEventListener('change', saveSettings));
         });
     </script>
 </body>
